@@ -3,7 +3,7 @@
         <p>{{ quizs.title }}</p>
         <ProgressBar :questions="quizs.questions" :index="index" class="w-80" />
         <Question :questions="questions" v-if="questions && !showanswers"
-            @nextquestion="(answer) => getQuestionAnswer(answer)" />
+            @nextquestion="(answer) => getQuestionAnswer(answer)" v-model="answermodel" />
         <div v-if="showanswers">
             <p>Vous avez trouver {{ lenghtOfCorrectAnswer.length }} réponse sur {{ quizs.questions.length }}</p>
             <ul class="list-none" :key="index" v-for="(resume, index) in answers">
@@ -47,6 +47,7 @@ let props = defineProps({
 let answers = ref([]);
 let index = ref(0);
 let showanswers = ref(false);
+const answermodel = ref('');
 
 const questions = computed(() => {
     return props.quizs.questions ? props.quizs.questions[index.value] : {};
@@ -75,7 +76,7 @@ function getQuestionAnswer(answer) {
     if (index.value > props.quizs.questions.length - 1) {
         showanswers.value = true;
     }
-
+    answermodel.value = '';
 }
 
 
