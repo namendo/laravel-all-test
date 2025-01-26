@@ -1,7 +1,7 @@
 <template>
     <div class="inline-flex items-center">
         <label class="relative flex items-center cursor-pointer" :for="`answer${index}`" >
-            <input name="framework" type="radio" :disabled="isDisable"
+            <input :name="`answer${index}`" type="radio" :disabled="isDisable" @change="onChange"
                 class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-slate-300 checked:border-slate-400 transition-all"
                 :id="`answer${index}`" v-model="model" :value="value" />
             <span
@@ -22,6 +22,13 @@ const props = defineProps({
     currentAnswer: String,
     value: String
 })
+
+const emits = defineEmits(['change']);
+
+function onChange(event) {
+    console.log("event",event)
+    emits('change', event)
+}
 
 const model = defineModel()
 

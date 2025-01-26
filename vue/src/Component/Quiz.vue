@@ -2,7 +2,7 @@
     <div v-if="quizs">
         <p>{{ quizs.title }}</p>
         <ProgressBar :questions="quizs.questions" :index="index" class="w-80" />
-        <Question :questions="questions" v-if="questions && !showanswers"
+        <Question :key="questions.question" :questions="questions" :choices="questions.choices" v-if="questions && !showanswers"
             @nextquestion="(answer) => getQuestionAnswer(answer)" v-model="answermodel" />
         <div v-if="showanswers">
             <p>Vous avez trouver {{ lenghtOfCorrectAnswer.length }} réponse sur {{ quizs.questions.length }}</p>
